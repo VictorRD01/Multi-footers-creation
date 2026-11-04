@@ -9,36 +9,23 @@ function render() {
   document.querySelector('#workspace').replaceChildren();
   definitions.forEach((d, index) => {
     const panel = document.createElement('section'); panel.className = 'panel';
-    panel.innerHTML = `<div class="panel-top"><span class="panel-icon">${d.icon}</span><div><h3>${d.title}</h3><p>${d.subtitle}</p></div><span class="panel-number">0${index+1}</span></div><div class="version-field"><label for="version-${d.id}">${d.title}</label><div class="select-wrapper"><select id="version-${d.id}">${d.versions.map(v => `<option value="${v}">Version ${v}</option>`).join('')}</select></div><p>Select a version to edit its independent code and styles.</p><p class="widget-indicator">Global widget: ${state.widgets.enabled ? 'enabled — affects every view' : 'disabled'}</p></div><div class="editor-widget"><div class="widget-heading"><span>${faIcon('code')}</span> Custom CSS & JavaScript </div><div class="tabs" role="tablist" aria-label="${d.title} code language"><button class="tab active" data-lang="js" role="tab">JavaScript</button><button class="tab" data-lang="css" role="tab">CSS</button><span class="language-label">.js</span></div><div class="code-container"><div class="line-numbers" aria-hidden="true"></div><textarea class="code-editor" spellcheck="false" aria-label="${d.title} JavaScript code"></textarea></div><div class="editor-status"><span class="version-status"></span><span>UTF-8 &nbsp; · &nbsp; Editable</span></div></div><div class="panel-actions"><span class="save-status">✓ All changes saved</span><button class="button save-code" type="button">${faIcon('circle-check')} Save changes</button><button class="button primary run">${faIcon('play')} &nbsp; Run preview</button></div><div class="preview"><div class="preview-heading"><span>Inventory preview · fixed HTML</span><a class="open-inventory button" href="inventory-${d.id}.html" target="_blank" rel="noopener">${faIcon('expand')} Open page</a><button class="expand-preview" type="button" aria-expanded="false">${faIcon('expand')} Expand preview</button><span class="preview-status">Isolated sandbox</span></div><iframe title="${d.title} preview" sandbox="allow-scripts"></iframe></div>`;
+    panel.innerHTML = `<div class="panel-top"><span class="panel-icon">${d.icon}</span><div><h3>${d.title}</h3><p>${d.subtitle}</p></div><span class="panel-number">0${index+1}</span></div><div class="version-field"><label for="version-${d.id}">${d.title}</label><div class="select-wrapper"><select id="version-${d.id}">${d.versions.map(v => `<option value="${v}">Version ${v}</option>`).join('')}</select></div><p>Select a version to edit its independent code and styles.</p><p class="widget-indicator">Global widget: ${state.widgets.enabled ? 'enabled — affects every view' : 'disabled'}</p></div><div class="editor-widget"><div class="widget-heading"><span>${faIcon('code')}</span> Custom CSS & JavaScript </div><div class="tabs" role="tablist" aria-label="${d.title} code language"><button class="tab active" data-lang="js" role="tab">JavaScript</button><button class="tab" data-lang="css" role="tab">CSS</button><span class="language-label">.js</span></div><div class="code-container"><div class="line-numbers" aria-hidden="true"></div><textarea class="code-editor" spellcheck="false" aria-label="${d.title} JavaScript code"></textarea></div><div class="editor-status"><span class="version-status"></span><span>UTF-8 &nbsp; · &nbsp; Editable</span></div></div><div class="panel-actions"><span class="save-status">✓ All changes saved</span><button class="button save-code" type="button">${faIcon('circle-check')} Save changes</button><a class="open-inventory button" href="inventory-${d.id}.html" target="_blank" rel="noopener">${faIcon('expand')} Open page</a></div>`;
     document.querySelector('#workspace').append(panel);
     let language = 'js'; const editor = panel.querySelector('textarea'); const select = panel.querySelector('select');
     const current = () => state[d.id].versions[state[d.id].selected];
     function lines() { panel.querySelector('.line-numbers').textContent = Array.from({length: editor.value.split('\n').length}, (_,i) => i+1).join('\n'); panel.querySelector('.line-numbers').scrollTop = editor.scrollTop; }
     function loadEditor() { editor.value = current()[language]; editor.setAttribute('aria-label', `${d.title} ${language === 'js' ? 'JavaScript' : language.toUpperCase()} code`); panel.querySelector('.version-status').textContent = `Version ${state[d.id].selected} · ${d.title}`; lines(); }
-    function run() {
-      const code = current();
-      // A fresh opaque-origin frame resets the previous version's scripts and styles.
-      const frame = panel.querySelector('iframe');
-      const documentCode = buildInventoryDocument(d.id, state[d.id].selected, code, state.widgets);
-      const fresh = frame.cloneNode(false); fresh.srcdoc = documentCode; frame.replaceWith(fresh);
-      panel.querySelector('.preview-status').textContent = `Version ${state[d.id].selected} · Preview updated`;
-    }
     select.value = state[d.id].selected;
-    select.addEventListener('change', () => { state[d.id].selected = Number(select.value); save(panel); loadEditor(); run(); });
+    select.addEventListener('change', () => { state[d.id].selected = Number(select.value); save(panel); loadEditor(); });
     panel.querySelectorAll('.tab').forEach(tab => {
       tab.setAttribute('aria-selected', String(tab.dataset.lang === language));
       tab.addEventListener('click', () => { language = tab.dataset.lang; panel.querySelectorAll('.tab').forEach(t => { t.classList.toggle('active', t === tab); t.setAttribute('aria-selected', String(t === tab)); }); panel.querySelector('.language-label').textContent = '.'+language; loadEditor(); });
     });
-    editor.addEventListener('input', () => { current()[language] = editor.value; save(panel); lines(); panel.querySelector('.preview-status').textContent = 'Changes pending · Run preview'; });
+    editor.addEventListener('input', () => { current()[language] = editor.value; save(panel); lines(); });
     editor.addEventListener('scroll', lines);
     editor.addEventListener('keydown', event => { if (event.key === 'Tab') { event.preventDefault(); const start = editor.selectionStart; editor.setRangeText('  ', start, editor.selectionEnd, 'end'); editor.dispatchEvent(new Event('input')); } });
-    panel.querySelector('.run').addEventListener('click', run);
     panel.querySelector('.save-code').addEventListener('click', () => { save(panel); });
-    const expandButton=panel.querySelector('.expand-preview');
-    function expand(open){panel.querySelector('.preview').classList.toggle('preview-expanded',open);expandButton.setAttribute('aria-expanded',String(open));expandButton.innerHTML=(open?faIcon('compress'):faIcon('expand'))+(open?' Close preview':' Expand preview');document.body.classList.toggle('has-expanded-preview',open);}
-    expandButton.addEventListener('click',()=>expand(expandButton.getAttribute('aria-expanded')!=='true'));
-    panel.addEventListener('keydown',event=>{if(event.key==='Escape')expand(false);});
-    loadEditor(); run();
+    loadEditor();
   });
 }
 render();

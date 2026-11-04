@@ -49,7 +49,7 @@ async function applyScenario(scenario, mode) {
     candidate.listing.selected = scenario.initial;
     protectExampleBackup(); persistConfiguration(candidate); render(); renderWidgets();
     showDemoNote(`${scenario.title} · ${mode !== 'scoped' ? (mode === 'hotfix' ? 'HOTFIX GLOBAL DE V4: ' : 'GLOBAL: ') + scenario.failure : 'POR VERSIÓN: widget global desactivado. Cambia de versión; cada una carga su solución. ' + scenario.solution}`);
-    showSection('inventory'); toast(mode !== 'scoped' ? 'Ejemplo global cargado. Revisa las auditorías y cambia de versión.' : 'Soluciones separadas guardadas en cada versión.');
+    showSection('inventory'); toast(mode !== 'scoped' ? 'Ejemplo global cargado. Abre la página de inventario y recarga para revisar las auditorías.' : 'Soluciones separadas guardadas en cada versión.');
   } catch (error) { toast('No se pudo cargar el ejemplo: ' + error.message); }
 }
 async function applySharedExample(path) {
@@ -83,7 +83,7 @@ function renderWidgets(keepDraft = false) {
       const scripts = parseWidgetHTML(html);
       const candidate = validate(JSON.parse(JSON.stringify(state))); candidate.widgets = {enabled:document.querySelector('#widget-enabled').checked,html};
       persistConfiguration(candidate); render(); validation.textContent = `${scripts.length} script(s) guardados · ${candidate.widgets.enabled ? 'activo' : 'desactivado'}`;
-      validation.className = ''; toast('Widget guardado. Las previews se actualizaron; recarga las otras pestañas.');
+      validation.className = ''; toast('Widget guardado. Recarga las páginas de inventario para ver los cambios.');
     } catch(error) { validation.textContent = error.message; validation.className = 'widget-error'; }
   });
   let hasBackup = false; try { hasBackup=!!localStorage.getItem(DEMO_BACKUP_KEY); } catch {}
