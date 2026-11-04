@@ -39,3 +39,9 @@ window.addEventListener('storage', event => {
     document.querySelector('#reload-page').classList.add('changes-available');
   }
 });
+
+// Only accept the fixed internal route from this page's own isolated preview.
+window.addEventListener('message', event => {
+  if(event.source !== document.querySelector('#inventory-frame').contentWindow) return;
+  if(event.data?.type === 'inventory-navigation' && event.data.view === 'listing' && event.data.version === 6) location.assign('inventory-listing.html?version=6');
+});

@@ -1,0 +1,17 @@
+<script>
+// Controlled regression: the correct SKU is paired with a subtotal instead of the final total.
+(function () {
+  if (window.demoQuoteHandler) document.removeEventListener('click', window.demoQuoteHandler, true);
+  window.demoQuoteHandler = function (event) {
+    const button = event.target.closest('.details-v6 .vehicle-action');
+    if (!button) return;
+    event.preventDefault(); event.stopImmediatePropagation();
+    const page = button.closest('.inventory-page');
+    const sale = page.querySelector('.detail-sale-price').textContent;
+    const cents = Math.round(Number(sale.replace(/[^0-9.-]/g, '')) * 100);
+    InventoryLab.showQuote(page, {sku:page.dataset.stock,name:page.querySelector('.detail-heading h1').textContent.trim(),cents}, 'Global regression: sale subtotal used as final total');
+  };
+  document.addEventListener('click', window.demoQuoteHandler, true);
+})();
+
+</script>

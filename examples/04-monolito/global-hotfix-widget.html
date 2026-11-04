@@ -1,22 +1,22 @@
 <script>
 // ============================================================
-// WIDGET GLOBAL: estilos + dinero + identidad + eventos + CTA
-// + seis contextos actuales y diez revisiones heredadas simuladas.
-// Todo permanece en un único campo de edición, aunque solo se monte una ruta.
-// Está ordenado y funciona. Sigue siendo una unidad de edición/publicación.
+// GLOBAL WIDGET: styles + money + identity + events + CTA
+// + six current contexts and ten simulated historical revisions.
+// Everything remains in one editing field, although only one route mounts.
+// It is organized and functional, but remains one editing/publication unit.
 // ============================================================
 (function ($) {
   const page = document.querySelector('.inventory-page');
   const type = page.dataset.inventoryType;
   const version = Number(page.dataset.version);
   const shared = {
-    // Una edición aquí alcanza a Listing 4/5/6 y Details 1/3/6.
-    ctaText: 'Cotizar ATV con accesorios · hotfix V4',
+    // An edit here reaches Listing 4/5/6 and Details 1/3/6.
+    ctaText: 'Quote ATV with accessories · V4 hotfix',
     accent: '#bd1e2d'
   };
   const css = `
 /* ============================================================
-   ESTILOS COMPARTIDOS — consumidos por las SEIS ramas del archivo.
+   SHARED STYLES — consumed by all SIX branches in this file.
    ============================================================ */
 .inventory-page .vehicle-action { border-radius: 4px; }
 .inventory-page .demo-module-note { padding: 12px; background: #edf7f6; border-left: 3px solid #007f86; color: #175752; font: 12px/1.7 Arial, sans-serif; }
@@ -37,11 +37,11 @@
 .inventory-page[data-inventory-type="details"][data-version="6"] .detail-price { color: #345e8c; }
 
 /* ============================================================
-   CSS HISTÓRICO: selectores retirados, presentes en el mismo widget.
-   Ninguna de estas clases pertenece a las vistas actuales.
+   HISTORICAL CSS: retired selectors retained in the same widget.
+   None of these classes belongs to the current views.
    ============================================================ */
 
-/* Listing V1 · filtros por hash de una plantilla retirada */
+/* Listing V1 · hash filters for a retired demo template */
 .legacy-listing-v1 { border: 1px solid #ccc; padding: 16px; }
 .legacy-listing-v1 [hidden] { display: none; }
 .legacy-listing-v1 button { min-height: 36px; border-radius: 3px; }
@@ -52,7 +52,7 @@
   .legacy-listing-v1 button { width: 100%; }
 }
 
-/* Listing V2 · ordenamiento y paginación de tabla retirada */
+/* Listing V2 · sorting and pagination for a retired table */
 .legacy-listing-table-v2 { border: 1px solid #ccc; padding: 16px; }
 .legacy-listing-table-v2 [hidden] { display: none; }
 .legacy-listing-table-v2 button { min-height: 36px; border-radius: 3px; }
@@ -63,7 +63,7 @@
   .legacy-listing-table-v2 button { width: 100%; }
 }
 
-/* Listing V3 · comparación y favoritos de grid retirado */
+/* Listing V3 · comparison and favorites for a retired grid */
 .legacy-hybrid-grid-v3 { border: 1px solid #ccc; padding: 16px; }
 .legacy-hybrid-grid-v3 [hidden] { display: none; }
 .legacy-hybrid-grid-v3 button { min-height: 36px; border-radius: 3px; }
@@ -74,7 +74,7 @@
   .legacy-hybrid-grid-v3 button { width: 100%; }
 }
 
-/* Details V1 · pestañas de especificaciones antiguas */
+/* Details V1 · historical specification tabs */
 .legacy-details-tabs-v1 { border: 1px solid #ccc; padding: 16px; }
 .legacy-details-tabs-v1 [hidden] { display: none; }
 .legacy-details-tabs-v1 button { min-height: 36px; border-radius: 3px; }
@@ -85,7 +85,7 @@
   .legacy-details-tabs-v1 button { width: 100%; }
 }
 
-/* Details V2 · galería retirada con controles propios */
+/* Details V2 · retired gallery with custom controls */
 .legacy-detail-gallery-v2 { border: 1px solid #ccc; padding: 16px; }
 .legacy-detail-gallery-v2 [hidden] { display: none; }
 .legacy-detail-gallery-v2 button { min-height: 36px; border-radius: 3px; }
@@ -96,7 +96,7 @@
   .legacy-detail-gallery-v2 button { width: 100%; }
 }
 
-/* Details V3 · simulador financiero antiguo */
+/* Details V3 · historical finance calculator */
 .legacy-finance-details-v3 { border: 1px solid #ccc; padding: 16px; }
 .legacy-finance-details-v3 [hidden] { display: none; }
 .legacy-finance-details-v3 button { min-height: 36px; border-radius: 3px; }
@@ -107,7 +107,7 @@
   .legacy-finance-details-v3 button { width: 100%; }
 }
 
-/* Listing V4 revisión anterior · accesorios y cargos */
+/* Previous Listing V4 revision · accessories and charges */
 .legacy-accessories-card-v4 { border: 1px solid #ccc; padding: 16px; }
 .legacy-accessories-card-v4 [hidden] { display: none; }
 .legacy-accessories-card-v4 button { min-height: 36px; border-radius: 3px; }
@@ -118,7 +118,7 @@
   .legacy-accessories-card-v4 button { width: 100%; }
 }
 
-/* Listing V5 revisión anterior · formulario de consulta */
+/* Previous Listing V5 revision · inquiry form */
 .legacy-lead-form-v5 { border: 1px solid #ccc; padding: 16px; }
 .legacy-lead-form-v5 [hidden] { display: none; }
 .legacy-lead-form-v5 button { min-height: 36px; border-radius: 3px; }
@@ -129,7 +129,7 @@
   .legacy-lead-form-v5 button { width: 100%; }
 }
 
-/* Listing V6 beta retirada · presentación de cargos náuticos */
+/* Retired Listing V6 beta · marine charges */
 .legacy-marine-fees-v6 { border: 1px solid #ccc; padding: 16px; }
 .legacy-marine-fees-v6 [hidden] { display: none; }
 .legacy-marine-fees-v6 button { min-height: 36px; border-radius: 3px; }
@@ -140,7 +140,7 @@
   .legacy-marine-fees-v6 button { width: 100%; }
 }
 
-/* Details V6 beta retirada · paquetes y panel móvil */
+/* Retired Details V6 beta · packages and mobile panel */
 .legacy-detail-packages-v6 { border: 1px solid #ccc; padding: 16px; }
 .legacy-detail-packages-v6 [hidden] { display: none; }
 .legacy-detail-packages-v6 button { min-height: 36px; border-radius: 3px; }
@@ -154,21 +154,21 @@
   $('<style data-demo="entire-monolith">').text(css).appendTo('head');
 
   // ==========================================================
-  // UTILIDADES: importe estructurado, escritura y eventos
+  // UTILITIES: structured amounts, rendering and events
   // ==========================================================
   function readCents(unit) {
     const cents = Number(unit.dataset.unitPriceCents);
-    if (!Number.isSafeInteger(cents) || cents <= 0) throw new Error('Precio estructurado inválido.');
+    if (!Number.isSafeInteger(cents) || cents <= 0) throw new Error('Invalid structured price.');
     return cents;
   }
   function writePrice(unit, selector) {
     const label = unit.querySelector(selector);
-    if (!label) throw new Error('Contrato DOM incumplido: ' + selector);
+    if (!label) throw new Error('Missing DOM contract: ' + selector);
     label.textContent = InventoryLab.usd(readCents(unit));
   }
   function markContext(label) {
     $('.demo-module-note').remove();
-    $('<p class="demo-module-note">').text('Activo: ' + label + '. El resto de ramas permanece en el mismo archivo global.').prependTo(page);
+    $('<p class="demo-module-note">').text('Active: ' + label + '. Other branches remain in the same global file.').prependTo(page);
   }
   function setButtons(selector) {
     $(selector).text(shared.ctaText).css({background: shared.accent, color: '#fff'});
@@ -184,16 +184,16 @@
       try {
         InventoryLab.showQuote(unit, {
           sku: unit.dataset.stock,
-          name: unit.querySelector('.reference-description h2, .vehicle-body h2, :scope > h1').textContent.trim(),
+          name: unit.querySelector('.reference-description h2, .vehicle-body h2, .detail-heading h1, :scope > h1').textContent.trim(),
           cents: readCents(unit)
-        }, 'Cotización global con adaptador ' + type + ' V' + version);
+        }, 'Global quote adapter ' + type + ' V' + version);
       } catch (error) { InventoryLab.quoteUnavailable(unit, error.message); }
     };
     document.addEventListener('click', window.demoQuoteHandler, true);
   }
 
   // ==========================================================
-  // LISTING / V4: tarjetas, precios finales y acciones
+  // LISTING / V4: cards, final prices and actions
   // ==========================================================
 // <module id="listing-v4" status="current">
   function listingV4() {
@@ -204,12 +204,12 @@
     setButtons('.inventory-v4 .reference-actions .primary-action');
     installQuoteHandler('.vehicle-card');
     markContext('Listing V4');
-    InventoryLab.auditPrices('Monolito: Listing V4');
+    InventoryLab.auditPrices('Global archive: Listing V4');
   }
 // </module>
 
   // ==========================================================
-  // LISTING / V5: filas, precio compacto y Get Quote
+  // LISTING / V5: rows, compact price and Get Quote
   // ==========================================================
 // <module id="listing-v5" status="current">
   function listingV5() {
@@ -220,12 +220,12 @@
     setButtons('.inventory-v5 .reference-actions .primary-action');
     installQuoteHandler('.vehicle-card');
     markContext('Listing V5');
-    InventoryLab.auditPrices('Monolito: Listing V5');
+    InventoryLab.auditPrices('Global archive: Listing V5');
   }
 // </module>
 
   // ==========================================================
-  // LISTING / V6: All-In Price, promociones y consulta
+  // LISTING / V6: All-In Price, promotions and inquiry
   // ==========================================================
 // <module id="listing-v6" status="current">
   function listingV6() {
@@ -236,12 +236,12 @@
     setButtons('.inventory-v6 .reference-actions .primary-action');
     installQuoteHandler('.vehicle-card');
     markContext('Listing V6');
-    InventoryLab.auditPrices('Monolito: Listing V6');
+    InventoryLab.auditPrices('Global archive: Listing V6');
   }
 // </module>
 
   // ==========================================================
-  // DETAILS / V1: ficha, importe y botón de contacto
+  // DETAILS / V1: product, amount and contact button
   // ==========================================================
 // <module id="details-v1" status="current">
   function detailsV1() {
@@ -249,12 +249,12 @@
     setButtons('.inventory-page > .vehicle-action');
     installQuoteHandler('.inventory-page');
     markContext('Details V1');
-    InventoryLab.auditPrices('Monolito: Details V1');
+    InventoryLab.auditPrices('Global archive: Details V1');
   }
 // </module>
 
   // ==========================================================
-  // DETAILS / V3: ficha, importe y ficha técnica
+  // DETAILS / V3: product, amount and specifications
   // ==========================================================
 // <module id="details-v3" status="current">
   function detailsV3() {
@@ -262,34 +262,34 @@
     setButtons('.inventory-page > .vehicle-action');
     installQuoteHandler('.inventory-page');
     markContext('Details V3');
-    InventoryLab.auditPrices('Monolito: Details V3');
+    InventoryLab.auditPrices('Global archive: Details V3');
   }
 // </module>
 
   // ==========================================================
-  // DETAILS / V6: ficha, importe y contacto especializado
+  // DETAILS / V6: product, final total and specialized contact
   // ==========================================================
 // <module id="details-v6" status="current">
   function detailsV6() {
     writePrice(page, '.detail-price');
-    setButtons('.inventory-page > .vehicle-action');
+    setButtons('.details-v6 .detail-actions .vehicle-action');
     installQuoteHandler('.inventory-page');
     markContext('Details V6');
-    InventoryLab.auditPrices('Monolito: Details V6');
+    InventoryLab.auditPrices('Global archive: Details V6');
   }
 // </module>
 
   // ==========================================================
-  // ARCHIVO HEREDADO: diez implementaciones de demostración.
-  // Se conservan en este campo aunque el router NO las llama.
-  // No se puede afirmar que una versión real del proveedor esté retirada.
-  // Son revisiones históricas ficticias con selectores distintos.
+  // HISTORICAL ARCHIVE: ten demonstration implementations.
+  // Preserved in this field even though the router NEVER invokes them.
+  // This does not claim that any actual vendor version has been retired.
+  // These are simulated historical revisions with different selectors.
   // ==========================================================
   let legacyMountAttempts = 0;
 
 // <module id="legacy-listing-v1" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V1 · filtros por hash de una plantilla retirada
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Listing V1 · hash filters for a retired demo template
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_listing_v1() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-listing-v1');
@@ -317,7 +317,7 @@
         card.toggle(matches);
         if (matches) visible++;
       });
-      summary.text(visible + ' resultados heredados');
+      summary.text(visible + ' historical results');
     }
     function writeHash() {
       const parameters = new URLSearchParams();
@@ -344,8 +344,8 @@
 // </module>
 
 // <module id="legacy-listing-v2" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V2 · ordenamiento y paginación de tabla retirada
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Listing V2 · sorting and pagination for a retired table
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_listing_v2() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-listing-table-v2');
@@ -395,8 +395,8 @@
 // </module>
 
 // <module id="legacy-listing-v3" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V3 · comparación y favoritos de grid retirado
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Listing V3 · comparison and favorites for a retired grid
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_listing_v3() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-hybrid-grid-v3');
@@ -411,7 +411,7 @@
         const item = jQuery('<div class="legacy-compare-item">');
         jQuery('<strong>').text(data.name).appendTo(item);
         jQuery('<span>').text(data.price).appendTo(item);
-        jQuery('<button type="button">').text('Quitar')
+        jQuery('<button type="button">').text('Remove')
           .attr('data-remove-stock', stock).appendTo(item);
         comparison.append(item);
       }
@@ -448,8 +448,8 @@
 // </module>
 
 // <module id="legacy-details-tabs" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V1 · pestañas de especificaciones antiguas
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Details V1 · historical specification tabs
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_details_tabs() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-details-tabs-v1');
@@ -494,8 +494,8 @@
 // </module>
 
 // <module id="legacy-details-gallery" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V2 · galería retirada con controles propios
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Details V2 · retired gallery with custom controls
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_details_gallery() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-detail-gallery-v2');
@@ -536,8 +536,8 @@
 // </module>
 
 // <module id="legacy-details-finance" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V3 · simulador financiero antiguo
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Details V3 · historical finance calculator
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_details_finance() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-finance-details-v3');
@@ -558,8 +558,8 @@
         && price > 0 && deposit >= 0 && deposit <= price
         && Number.isInteger(months) && months > 0 && annualRate >= 0;
       if (!valid) {
-        error.text('Revise los datos de la simulación histórica.');
-        output.text('No disponible');
+        error.text('Review the historical simulation inputs.');
+        output.text('Unavailable');
         return;
       }
       const principal = price - deposit;
@@ -568,7 +568,7 @@
         ? principal / months
         : principal * monthlyRate / (1 - Math.pow(1 + monthlyRate, -months));
       output.text(payment.toFixed(2));
-      error.text('Ejemplo histórico de cálculo, sin oferta de crédito.');
+      error.text('Historical calculation example; not a credit offer.');
       root.find('.legacy-principal').text(principal.toFixed(2));
       root.find('.legacy-total-payments').text((payment * months).toFixed(2));
       root.find('.legacy-total-interest').text((payment * months - principal).toFixed(2));
@@ -586,8 +586,8 @@
 // </module>
 
 // <module id="legacy-v4-accessories" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V4 revisión anterior · accesorios y cargos
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Previous Listing V4 revision · accessories and charges
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v4_accessories() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-accessories-card-v4');
@@ -623,7 +623,7 @@
     });
     root.on('click.legacyAccessories', '.legacy-copy-configuration', () => {
       if (!calculate()) return;
-      // Solo muestra el JSON en el propio formulario; no envía datos.
+      // Display JSON in the local form only; never send data.
       root.find('.legacy-configuration-json').text(JSON.stringify([...selected.entries()], null, 2));
     });
     calculate();
@@ -632,8 +632,8 @@
 // </module>
 
 // <module id="legacy-v5-lead-form" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V5 revisión anterior · formulario de consulta
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Previous Listing V5 revision · inquiry form
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v5_lead_form() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-lead-form-v5');
@@ -653,7 +653,7 @@
       const valid = rule(value);
       jQuery(input).attr('aria-invalid', String(!valid));
       jQuery(input).closest('.legacy-form-field').find('.legacy-field-error')
-        .text(valid ? '' : 'Revise este dato.');
+        .text(valid ? '' : 'Review this value.');
       return valid;
     }
     fields.off('.legacyLead').on('change.legacyLead blur.legacyLead', function () {
@@ -663,7 +663,7 @@
       event.preventDefault();
       const valid = fields.toArray().map(validateField).every(Boolean);
       if (!valid) {
-        summary.text('Hay campos pendientes.');
+        summary.text('Some fields need attention.');
         fields.filter('[aria-invalid="true"]').first().trigger('focus');
         return;
       }
@@ -671,8 +671,8 @@
       fields.each(function () {
         if (this.name && this.type !== 'password') payload[this.name] = this.type === 'checkbox' ? this.checked : this.value;
       });
-      // Conservado como simulación: nunca hay fetch, AJAX ni envío de formulario.
-      summary.text('Borrador local heredado: ' + Object.keys(payload).length + ' campos, sin envío.');
+      // Simulation only: no fetch, AJAX or form submission.
+      summary.text('Historical local draft: ' + Object.keys(payload).length + ' fields; not sent.');
       root.find('.legacy-payload-preview').text(JSON.stringify(payload, null, 2));
     });
     return true;
@@ -680,8 +680,8 @@
 // </module>
 
 // <module id="legacy-v6-marine-fees" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V6 beta retirada · presentación de cargos náuticos
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Retired Listing V6 beta · marine charges
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v6_marine_fees() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-marine-fees-v6');
@@ -705,7 +705,7 @@
       root.find('.legacy-total-incentives').text(format(incentives));
       breakdown.find('[data-charge-kind="charge"]').prop('hidden', !view.showCharges);
       breakdown.find('[data-charge-kind="incentive"]').prop('hidden', !view.showIncentives);
-      root.find('.legacy-fee-disclosure').text(rows.length + ' conceptos en el desglose histórico.');
+      root.find('.legacy-fee-disclosure').text(rows.length + ' items in the historical breakdown.');
     }
     root.find('.legacy-toggle-charges').off('.legacyMarine').on('click.legacyMarine', function () {
       view.showCharges = !view.showCharges;
@@ -723,8 +723,8 @@
 // </module>
 
 // <module id="legacy-v6-detail-packages" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V6 beta retirada · paquetes y panel móvil
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Retired Details V6 beta · packages and mobile panel
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v6_detail_packages() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-detail-packages-v6');
@@ -743,7 +743,7 @@
         if (selected) names.push(jQuery(this).find('.legacy-package-name').text());
       });
       root.find('.legacy-package-count').text(names.length);
-      root.find('.legacy-package-names').text(names.join(', ') || 'Sin paquetes');
+      root.find('.legacy-package-names').text(names.join(', ') || 'No packages');
     }
     root.off('.legacyPackages').on('click.legacyPackages', '.legacy-select-package', function () {
       const code = jQuery(this).closest('.legacy-package-card').attr('data-package-code');
@@ -767,20 +767,20 @@
 // </module>
 
   const legacyRegistry = Object.freeze([
-    Object.freeze({"id": "legacy-listing-v1", "label": "Listing V1 · filtros por hash de una plantilla retirada", "selector": ".legacy-listing-v1"}),
-    Object.freeze({"id": "legacy-listing-v2", "label": "Listing V2 · ordenamiento y paginación de tabla retirada", "selector": ".legacy-listing-table-v2"}),
-    Object.freeze({"id": "legacy-listing-v3", "label": "Listing V3 · comparación y favoritos de grid retirado", "selector": ".legacy-hybrid-grid-v3"}),
-    Object.freeze({"id": "legacy-details-tabs", "label": "Details V1 · pestañas de especificaciones antiguas", "selector": ".legacy-details-tabs-v1"}),
-    Object.freeze({"id": "legacy-details-gallery", "label": "Details V2 · galería retirada con controles propios", "selector": ".legacy-detail-gallery-v2"}),
-    Object.freeze({"id": "legacy-details-finance", "label": "Details V3 · simulador financiero antiguo", "selector": ".legacy-finance-details-v3"}),
-    Object.freeze({"id": "legacy-v4-accessories", "label": "Listing V4 revisión anterior · accesorios y cargos", "selector": ".legacy-accessories-card-v4"}),
-    Object.freeze({"id": "legacy-v5-lead-form", "label": "Listing V5 revisión anterior · formulario de consulta", "selector": ".legacy-lead-form-v5"}),
-    Object.freeze({"id": "legacy-v6-marine-fees", "label": "Listing V6 beta retirada · presentación de cargos náuticos", "selector": ".legacy-marine-fees-v6"}),
-    Object.freeze({"id": "legacy-v6-detail-packages", "label": "Details V6 beta retirada · paquetes y panel móvil", "selector": ".legacy-detail-packages-v6"})
+    Object.freeze({"id": "legacy-listing-v1", "label": "Listing V1 · hash filters for a retired demo template", "selector": ".legacy-listing-v1"}),
+    Object.freeze({"id": "legacy-listing-v2", "label": "Listing V2 · sorting and pagination for a retired table", "selector": ".legacy-listing-table-v2"}),
+    Object.freeze({"id": "legacy-listing-v3", "label": "Listing V3 · comparison and favorites for a retired grid", "selector": ".legacy-hybrid-grid-v3"}),
+    Object.freeze({"id": "legacy-details-tabs", "label": "Details V1 · historical specification tabs", "selector": ".legacy-details-tabs-v1"}),
+    Object.freeze({"id": "legacy-details-gallery", "label": "Details V2 · retired gallery with custom controls", "selector": ".legacy-detail-gallery-v2"}),
+    Object.freeze({"id": "legacy-details-finance", "label": "Details V3 · historical finance calculator", "selector": ".legacy-finance-details-v3"}),
+    Object.freeze({"id": "legacy-v4-accessories", "label": "Previous Listing V4 revision · accessories and charges", "selector": ".legacy-accessories-card-v4"}),
+    Object.freeze({"id": "legacy-v5-lead-form", "label": "Previous Listing V5 revision · inquiry form", "selector": ".legacy-lead-form-v5"}),
+    Object.freeze({"id": "legacy-v6-marine-fees", "label": "Retired Listing V6 beta · marine charges", "selector": ".legacy-marine-fees-v6"}),
+    Object.freeze({"id": "legacy-v6-detail-packages", "label": "Retired Details V6 beta · packages and mobile panel", "selector": ".legacy-detail-packages-v6"})
   ]);
 
   // ==========================================================
-  // ROUTER: cualquier versión nueva requiere editar este bloque.
+  // ROUTER: adding a version requires editing this block.
   // ==========================================================
   const routes = {
     listing: {4: listingV4, 5: listingV5, 6: listingV6},
@@ -788,8 +788,8 @@
   };
   const mount = routes[type]?.[version];
   if (mount) mount();
-  // Este inventario de código describe lo realmente definido y lo montado.
-  // Las funciones heredadas siguen presentes, pero sus invocaciones son cero.
+  // This report describes the defined modules and actual mounts.
+  // Historical functions remain defined, but their invocation count is zero.
   window.InventoryMonolithReport = Object.freeze({
     activeContext: type + '-v' + version,
     currentContexts: Object.values(routes).reduce((count, group) => count + Object.keys(group).length, 0),
@@ -800,9 +800,9 @@
   });
   const report = window.InventoryMonolithReport;
   const inventory = $('<aside class="demo-code-inventory">');
-  $('<strong>').text('Un widget: ' + report.currentContexts + ' contextos actuales + ' + report.archivedModules + ' módulos históricos simulados').appendTo(inventory);
-  $('<p>').text('Activo: ' + report.activeContext + '. Montados: ' + report.currentMounted + ' actual; ' + report.archivedMountAttempts + ' heredados. El archivo completo permanece en el campo global.').appendTo(inventory);
-  $('<small>').text('Código histórico de demostración: no representa el estado de versiones reales del proveedor.').appendTo(inventory);
+  $('<strong>').text('One widget: ' + report.currentContexts + ' current contexts + ' + report.archivedModules + ' simulated historical modules').appendTo(inventory);
+  $('<p>').text('Active: ' + report.activeContext + '. Mounted: ' + report.currentMounted + ' current; ' + report.archivedMountAttempts + ' archived. The entire source remains in the global field.').appendTo(inventory);
+  $('<small>').text('Historical demonstration code does not represent the status of actual vendor versions.').appendTo(inventory);
   inventory.prependTo(page);
 })(jQuery);
 

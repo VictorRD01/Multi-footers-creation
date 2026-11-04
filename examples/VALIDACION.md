@@ -1,39 +1,34 @@
-# Resultados de la validación de los casos
+# Validation results
 
-Comprobaciones funcionales realizadas con Chromium y Playwright sobre la aplicación servida por HTTP. Los fallos del global son resultados esperados de la demostración; las soluciones se verifican por su comportamiento, no solo por ausencia de excepciones.
+Functional checks were executed with Chromium and Playwright against the HTTP-served application. Intentional regressions are expected outcomes of the global examples, not unexpected application failures.
 
-| Comprobación | Resultado observado |
+## Current V6 release
+
+| Check | Observed result |
 | --- | --- |
-| Precios globales en V4 | Los tres precios coinciden con su referencia. |
-| Cambio a V5 | $22,448 → $22; $17,657 → $17; $46,947 → $46. Lote: $87,052 → $85, sin excepción JS. |
-| Filtro con precio corrupto | Las tres unidades de V5 pasan a aparecer por debajo de $20,000. |
-| Suma de conceptos en V6 | Primera unidad: $43,124 publicado frente a $20,495 de referencia. Los tres importes resultan incorrectos. |
-| Adaptadores de precios 4/5/6 | Los importes publicados coinciden con los datos estructurados. En V5 solo una unidad queda por debajo de $20,000. |
-| CSS global en V4 | El CTA recibe clic y abre su diálogo de demostración. |
-| CSS global en V5/V6 | Los tres CTA tienen `pointer-events: none`; un intento real de clic del puntero no activa el botón. |
-| CSS separado en 4/5/6 | Ningún CTA queda bloqueado por esa regla; vuelve a funcionar el clic que abre el diálogo. |
-| Cotización global en V4 | La segunda unidad cotizada coincide con la segunda unidad seleccionada. |
-| Cotización global en V5 | Selección: CFMOTO, C02617-C-ACCY, $17,657. Borrador incorrecto: Polaris, P60553, $22,448. |
-| Cotización separada | Listing 4/5/6 y Details 1/3/6 producen el SKU y el importe correspondientes a la unidad seleccionada. Se comprobó activación por teclado. |
-| Monolito inicial | Las seis rutas funcionan y mantienen precios correctos. |
-| Hotfix en constante común | El texto de la campaña de V4 aparece también en V5 y en Details. |
-| Contraparte de seis módulos | Solo V4 contiene la campaña de ATV; los otros cinco contextos mantienen su mensaje y sus precios. Las cotizaciones de Listing siguen resolviendo la unidad seleccionada. |
-| Comparación de código | El visor incluye el JS global completo, sus estilos y los doce archivos JS/CSS de los seis módulos. |
-| Páginas independientes | V5 reproduce el total incorrecto de $85; al instalar la solución y recargar, la auditoría vuelve a coincidir. |
-| Contrato de precio ausente | Se muestra “Precio no disponible” y se desactiva la consulta, sin convertir el importe en cero. |
-| Recuperación | Restaurar la copia inicial devuelve exactamente la configuración anterior a los ejemplos. |
-| Adaptación de Widgets | No hay desbordamiento horizontal de la página a 390 px. |
+| Fresh editor configuration | Listing and Details both select V6. No embedded inventory previews are present. |
+| Older saved configuration | A one-time migration selects V6 while preserving custom code. Subsequent saved selections survive reloads. |
+| Dealer Settings test plan | Seven sequential English scenarios, with described steps and expected outcomes. |
+| Details V6 pricing | Sale subtotal $16,184; destination $475; assembly $467; displayed total $17,126; savings $1,815; stock 3229. |
+| Gallery | Eight thumbnail controls, previous/next selection, and correctly updated illustration sources. |
+| Inquiry validation | Missing required values fail native validity checks; completed values show a local confirmation without sending or storing a request. |
+| Product actions | Demo dialogs open and close using their close controls. The back arrow opens Listing V6 through a fixed internal route. |
+| New total regression | Correct stock 3229 is paired with the wrong $16,184 subtotal. The audit detects the mismatch against $17,126. |
+| Details V6 solution | The quote uses the $17,126 displayed total while the separate sale-price panel remains $16,184. |
+| Existing global archive | The new nested Details V6 action works; price audit passes; product name and SKU match the WaveRunner; historical mount count remains zero. |
+| Separate architecture module | Details V6 retains its own CTA, correct total and correct product identity. |
+| Older detail fixture | Details V1 continues to show the Toyota RAV4 fixture. |
+| Responsive layout | No horizontal page overflow at 390 px for Details V6 or the scenario list. |
+| Runtime | No unexpected page errors in this sequence. |
 
-No hubo errores de página inesperados durante esta secuencia. No se validaron reglas fiscales, financiación comercial, APIs de venta, todos los navegadores ni una matriz completa de accesibilidad. `pointer-events: none` se probó como regresión de puntero; no equivale a bloquear necesariamente la activación mediante teclado.
+## Previously verified regression contracts
 
+- Global V4 pricing works; the V5 fallback publishes $22/$17/$46 instead of $22,448/$17,657/$46,947. The total falls from $87,052 to $85 without an exception, and price filters inherit the incorrect values.
+- Global V6 price reconstruction double-counts concepts; the first sample becomes $43,124 instead of $20,495. Version-specific price adapters restore structured amounts.
+- Positional CSS preserves pointer interaction in V4 but gives V5/V6 action columns `pointer-events:none`; a real pointer click is rejected. Scoped CSS restores the interaction.
+- The global V5 quote fallback pairs the second CFMOTO with the first Polaris SKU and price. Scoped adapters preserve the selected unit.
+- A shared V4 campaign hotfix reaches unrelated global routes; separate modules keep the V4 campaign local.
+- The global archive module ranges, line counts and bytes were checked against its actual source. Ten simulated historical modules remain defined but uninvoked.
+- The pre-example backup restores the saved configuration; standalone inventory pages read updated code on reload.
 
-## Ampliación del monolito con archivo histórico
-
-- El JS global tiene 806 líneas y 37,758 bytes; el manifiesto se contrastó con el archivo y con los rangos de sus 16 bloques.
-- Incluye seis adaptadores actuales y diez módulos históricos simulados. Se verificó cero invocaciones históricas en Listing 4/5/6, Details 1/3/6 y la vista genérica Listing V2.
-- Los seis adaptadores actuales mantienen importes correctos y cotizaciones de la unidad seleccionada. En Details se comprobó también el nombre del producto, sin tomar encabezados del panel de auditoría.
-- Se comprobó la lectura del código completo, los tamaños del archivo seleccionado, el mapa de 16 bloques y los saltos al módulo equivalente y a un módulo histórico.
-- El hotfix de V4 sigue alcanzando V5 y Details en el global. La solución separada mantiene la campaña en V4 y no carga el informe ni las implementaciones heredadas del monolito.
-- Se comprobó el informe en la página independiente, ausencia de desbordamiento horizontal a 390 px y restauración exacta de la configuración anterior al ejemplo.
-
-Los módulos históricos no se probaron sobre sus plantillas ficticias ni se declaran compatibles con los inventarios actuales. No se midió rendimiento y no se afirma que sus funciones se ejecuten por estar definidas en el archivo.
+These checks do not validate real financing, taxes, APIs, all browsers or a complete accessibility matrix. The $329/month copy is illustrative. Production prices and product identity require server validation; the browser snapshots used by this laboratory are presentation instrumentation.

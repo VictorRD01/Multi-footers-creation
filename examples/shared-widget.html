@@ -1,17 +1,17 @@
 <script>
-// Un buen candidato a widget global: comportamiento realmente común.
-// No depende de .grid-total, .compact-pricing ni de una marca.
-// No envía datos: solo cuenta clics en memoria en esta ejecución.
+// A good global-widget candidate: behavior shared by every view.
+// Independent of .grid-total, .compact-pricing and dealer branding.
+// No data is sent: clicks are counted in memory for this run.
 (function ($) {
   const page = $('.inventory-page');
   page.find('.demo-shared-counter').remove();
   const counter = $('<div class="demo-shared-counter">')
-    .text('Widget común: 0 clics de consulta (solo esta página)')
+    .text('Shared widget: 0 inquiry clicks (this page only)')
     .css({padding:'10px',background:'#e8f7f4',color:'#145952',fontSize:'12px'}).prependTo(page);
   let clicks = 0;
   $(document).off('click.demoShared', '.vehicle-action')
     .on('click.demoShared', '.vehicle-action', function () {
-      counter.text('Widget común: ' + (++clicks) + ' clics de consulta (solo esta página)');
+      counter.text('Shared widget: ' + (++clicks) + ' inquiry clicks (this page only)');
     });
 })(jQuery);
 

@@ -1,7 +1,7 @@
 <script>
 (function ($) {
   $('<style data-demo="positional-v4">').text("/* CSS de un dise\u00f1o compacto escrito y validado para las tarjetas V4. */\n.reference-vehicles { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }\n/* En V4 el segundo div es la descripci\u00f3n. En V5/V6 es la imagen. */\n.reference-card > div:nth-of-type(2) { height: 110px !important; overflow: hidden !important; }\n/* En V4 el tercero es el desglose est\u00e1tico de precios.\n   El autor evit\u00f3 que ese bloque decorativo capturara el puntero.\n   En V5/V6 ese MISMO \u00edndice contiene TODOS los botones comerciales. */\n.reference-card > div:nth-of-type(3) { height: 250px !important; overflow: hidden !important; pointer-events: none !important; }\n").appendTo('head');
-  InventoryLab.auditLayout('Fallo global: índices de hijos tomados de V4');
+  InventoryLab.auditLayout('Global regression: child positions copied from V4');
 })(jQuery);
 
 </script>

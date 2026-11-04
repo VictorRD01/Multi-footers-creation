@@ -1,4 +1,4 @@
-/* Solo listing V4. Editar aquí no reemplaza los demás módulos. */
+/* Only Listing V4. Editing this file does not replace other modules. */
 .inventory-v4 .reference-actions .primary-action { background: #bd1e2d; color: #fff; }
 .inventory-v4 .grid-total .vehicle-price { font-size: 24px; font-variant-numeric: tabular-nums; }
 .vehicle-action:disabled { opacity: .5; cursor: not-allowed; }

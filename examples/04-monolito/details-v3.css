@@ -1,4 +1,4 @@
-/* Solo details V3. Editar aquí no reemplaza los demás módulos. */
+/* Only Details V3. Editing this file does not replace other modules. */
 .inventory-page > .vehicle-action { background: #007f86; color: #fff; }
 .inventory-page[data-version="3"] .detail-price { color: #007f86; font-variant-numeric: tabular-nums; }
 .vehicle-action:disabled { opacity: .5; cursor: not-allowed; }

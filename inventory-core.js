@@ -1,8 +1,8 @@
 const STORAGE_KEY = 'dealer-inventory-studio-v1';
 const DEMO_BACKUP_KEY = STORAGE_KEY + '-before-examples';
 function defaultWidgets() { return { enabled: false, html: `<script>
-// JavaScript / jQuery compartido por todas las versiones.
-// jQuery está disponible; usa (function ($) { ... })(jQuery).
+// JavaScript / jQuery shared by every version.
+// jQuery is available; use (function ($) { ... })(jQuery).
 </script>` }; }
 
 const definitions = [{ id: 'listing', title: 'Inventory Listing', subtitle: 'Customize your vehicle listing experience', versions: [1,2,3,4,5,6], icon: faIcon('table-cells') }, { id: 'details', title: 'Inventory Details', subtitle: 'Customize your vehicle details experience', versions: [1,3,6], icon: faIcon('list') }];
@@ -20,6 +20,7 @@ function carIllustration(color, className) {
   return `<svg class="${className}" viewBox="0 0 400 210" role="img" aria-label="Vehicle illustration"><rect width="400" height="210" fill="#edf1f3"/><ellipse cx="200" cy="166" rx="155" ry="12" fill="#d4dce0"/><path d="M55 128 L91 116 L133 68 Q140 61 158 61 L251 61 Q268 63 285 84 L313 115 L345 127 L353 153 L45 153 Z" fill="${color}"/><path d="M108 115 L143 74 L193 74 L193 115 Z M204 74 L250 74 L283 115 L204 115 Z" fill="#bdd5df"/><path d="M48 133 L81 133 L81 143 L47 143 M318 131 L348 135 L350 144 L318 144" fill="#fff5cb"/><path d="M199 119 L199 146 M110 121 L99 145 M286 121 L295 145" stroke="#ffffff44"/><circle cx="111" cy="151" r="25" fill="#26343e"/><circle cx="111" cy="151" r="13" fill="#bec9cf"/><circle cx="293" cy="151" r="25" fill="#26343e"/><circle cx="293" cy="151" r="13" fill="#bec9cf"/></svg>`;
 }
 function inventoryMarkup(type, version) {
+  if (type === 'details' && version === 6) return detailsV6Markup();
   if (type === 'listing' && listingReferences[version]) return referenceListingMarkup(version);
   const header = '<header class="inventory-header"><strong class="dealer-brand">DEALER MOTORS</strong><span>Find your next vehicle</span></header>';
   if(type === 'details') return `<main class="inventory-page" data-unit-price-cents="3299500" data-stock="DM1042">${header}<p>Inventory / Toyota RAV4</p><h1>${vehicles[0].name}</h1><p>Pre-owned · Stock #DM1042</p>${carIllustration(vehicles[0].color,'vehicle-detail-image')}<h2>Ready for your next adventure.</h2><div class="detail-price">$32,995</div><div class="detail-facts"><span>Mileage: 12,450 mi</span><span>Drivetrain: AWD</span><span>Transmission: Automatic</span><span>Fuel: Gasoline</span></div><button class="vehicle-action">Check availability</button></main>`;
@@ -58,13 +59,16 @@ function initializeInventory() {
     if(button.dataset.action==='Print')dialog.querySelector('.dialog-description').textContent=name+' — Print action demonstration. No document has been printed.';dialog.showModal();
   }));
   dialog?.querySelector('.dialog-dismiss').addEventListener('click',()=>dialog.close());
+  dialog?.querySelector('.dialog-close').addEventListener('click',event=>{event.preventDefault();dialog.close();});
 }
 function defaults() {
-  const configuration = Object.fromEntries(definitions.map(d => [d.id, { selected: 1, versions: Object.fromEntries(d.versions.map(v => [v, {
+  const configuration = Object.fromEntries(definitions.map(d => [d.id, { selected: 6, versions: Object.fromEntries(d.versions.map(v => [v, {
     js: d.id === 'listing' && listingReferences[v] ? `// Inventory Listing — Version ${v}\n// Runs after the fixed inventory is ready.\n// Built-in search, filters and actions are provided by the page.\n\ndocument.querySelector('.inventory-page').dataset.customVersion = '${v}';\n\n// Example: document.querySelectorAll('.vehicle-price')\n//   .forEach(price => price.style.fontWeight = '800');` : `// ${d.title} — Version ${v}\n// Applied to the fixed inventory page.\n\ndocument.querySelectorAll('.vehicle-action').forEach(button => {\n  button.addEventListener('click', () => {\n    button.textContent = 'Request received ✓';\n  });\n});`,
     css: d.id === 'listing' && listingReferences[v] ? `/* Inventory Listing — Version ${v} */\n/* Fixed layout based on the supplied reference. */\n\n.inventory-page { --inventory-accent: ${listingReferences[v].accent}; }\n/* Customize .reference-card, .vehicle-price or .reference-actions here. */` : `/* ${d.title} — Version ${v} */\n/* Style the existing inventory. HTML is managed by the site. */\n\n.inventory-page { --accent: #007f86; }\n.vehicle-price, .detail-price { color: var(--accent); }\n.vehicle-action { background: var(--accent); border-color: var(--accent); }`
   }])) } ]));
   configuration.widgets = defaultWidgets();
+  configuration.uiRevision = 2;
+  configuration.details.versions[6] = {js: `// Inventory Details — Version 6\n// The fixed product page provides its gallery, form and demo actions.\ndocument.querySelector('.details-v6').dataset.customVersion = '6';`, css: `/* Inventory Details — Version 6 */\n.details-v6 { --detail-accent: #4fd024; }\n/* Customize .detail-pricing, .detail-actions and .detail-contact here. */`};
   return configuration;
 }
 function validate(data) {
@@ -81,6 +85,13 @@ function validate(data) {
   if (!widgets || typeof widgets.enabled !== 'boolean' || typeof widgets.html !== 'string') throw new Error('Invalid global widget');
   const configuration = Object.fromEntries(definitions.map(d => [d.id, {selected: data[d.id].selected, versions: Object.fromEntries(d.versions.map(v => [v, {js:data[d.id].versions[v].js, css:data[d.id].versions[v].css}]))}]));
   configuration.widgets = {enabled: widgets.enabled, html: widgets.html};
+  configuration.uiRevision = 2;
+  if (data.uiRevision !== 2) {
+    configuration.listing.selected = 6;
+    configuration.details.selected = 6;
+    // Replace only the exact previous built-in sample, preserving custom code.
+    if (configuration.details.versions[6].js.includes("// Inventory Details — Version 6") && configuration.details.versions[6].js === `// Inventory Details — Version 6\n// Applied to the fixed inventory page.\n\ndocument.querySelectorAll('.vehicle-action').forEach(button => {\n  button.addEventListener('click', () => {\n    button.textContent = 'Request received ✓';\n  });\n});`) configuration.details.versions[6].js=defaults().details.versions[6].js;
+  }
   return configuration;
 }
 
@@ -90,11 +101,11 @@ function parseWidgetHTML(html) {
   const scripts = [];
   function inspect(node) {
     if (node.nodeType === Node.COMMENT_NODE) return;
-    if (node.nodeType === Node.TEXT_NODE) { if (node.textContent.trim()) throw new Error('Envuelve el JavaScript en etiquetas <script>.'); return; }
+    if (node.nodeType === Node.TEXT_NODE) { if (node.textContent.trim()) throw new Error('Wrap JavaScript in <script> tags.'); return; }
     if (node.nodeType !== Node.ELEMENT_NODE) return;
-    if (node.tagName !== 'SCRIPT') throw new Error('Solo se permiten etiquetas <script> con JavaScript; no HTML ni CSS directos.');
+    if (node.tagName !== 'SCRIPT') throw new Error('Only inline JavaScript <script> tags are allowed; direct HTML and CSS are not supported.');
     const type = (node.getAttribute('type') || '').toLowerCase();
-    if (node.hasAttribute('src') || (type && !['text/javascript', 'application/javascript'].includes(type))) throw new Error('Usa scripts clásicos inline. jQuery ya está incluido; no se permiten src ni módulos.');
+    if (node.hasAttribute('src') || (type && !['text/javascript', 'application/javascript'].includes(type))) throw new Error('Use classic inline scripts. jQuery is already available; src and module scripts are not supported.');
     scripts.push(node.textContent);
   }
   [...parsed.head.childNodes, ...parsed.body.childNodes].forEach(inspect);
@@ -111,7 +122,7 @@ function executeInventoryScripts(type, version, scripts, widgetError, versionCod
   }
   const root = document.querySelector('.inventory-page'); root.dataset.inventoryType = type; root.dataset.version = version;
   if (window.jQuery) window.jQuery.noConflict();
-  else report('jQuery', 'No se pudo cargar la biblioteca local.');
+  else report('jQuery', 'The local library could not be loaded.');
   if (widgetError) report('Global widget', widgetError);
   scripts.forEach((code, index) => { try { (0,eval)(code); } catch (error) { report('Global widget · script ' + (index + 1), error); } });
   try { (0,eval)(versionCode); } catch (error) { report(type + ' · Version ' + version, error); }
@@ -122,5 +133,5 @@ function buildInventoryDocument(type, version, code, widgets = defaultWidgets())
   let scripts = [], widgetError = '';
   if (widgets.enabled) { try { scripts = parseWidgetHTML(widgets.html); } catch(error) { widgetError = error.message; } }
   const json = value => JSON.stringify(value).replaceAll('<', String.fromCharCode(92) + 'u003c');
-  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${inventoryStyles}</style><link rel="stylesheet" href="inventory-layouts.css"><link rel="stylesheet" href="examples/lab-support.css"><style>${code.css}</style></head><body>${inventoryMarkup(type, version)}<script src="vendor/jquery-3.7.1.min.js"><\/script><script src="examples/lab-support.js"><\/script><script>(${initializeInventory.toString()})();(${executeInventoryScripts.toString()})(${json(type)},${json(version)},${json(scripts)},${json(widgetError)},${json(code.js)});<\/script></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${inventoryStyles}</style><link rel="stylesheet" href="inventory-layouts.css"><link rel="stylesheet" href="examples/lab-support.css"><link rel="stylesheet" href="details-v6.css"><style>${code.css}</style></head><body>${inventoryMarkup(type, version)}<script src="vendor/jquery-3.7.1.min.js"><\/script><script src="examples/lab-support.js"><\/script><script>(${initializeInventory.toString()})();(${initializeDetailsV6.toString()})();(${executeInventoryScripts.toString()})(${json(type)},${json(version)},${json(scripts)},${json(widgetError)},${json(code.js)});<\/script></body></html>`;
 }

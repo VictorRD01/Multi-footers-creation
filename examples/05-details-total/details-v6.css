@@ -1,0 +1,2 @@
+/* Preserve the separate sale-price and final-total display. */
+.details-v6 .detail-price { color: #fff; font-variant-numeric: tabular-nums; }

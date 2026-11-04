@@ -1,5 +1,5 @@
 /* ============================================================
-   ESTILOS COMPARTIDOS — consumidos por las SEIS ramas del archivo.
+   SHARED STYLES — consumed by all SIX branches in this file.
    ============================================================ */
 .inventory-page .vehicle-action { border-radius: 4px; }
 .inventory-page .demo-module-note { padding: 12px; background: #edf7f6; border-left: 3px solid #007f86; color: #175752; font: 12px/1.7 Arial, sans-serif; }
@@ -20,11 +20,11 @@
 .inventory-page[data-inventory-type="details"][data-version="6"] .detail-price { color: #345e8c; }
 
 /* ============================================================
-   CSS HISTÓRICO: selectores retirados, presentes en el mismo widget.
-   Ninguna de estas clases pertenece a las vistas actuales.
+   HISTORICAL CSS: retired selectors retained in the same widget.
+   None of these classes belongs to the current views.
    ============================================================ */
 
-/* Listing V1 · filtros por hash de una plantilla retirada */
+/* Listing V1 · hash filters for a retired demo template */
 .legacy-listing-v1 { border: 1px solid #ccc; padding: 16px; }
 .legacy-listing-v1 [hidden] { display: none; }
 .legacy-listing-v1 button { min-height: 36px; border-radius: 3px; }
@@ -35,7 +35,7 @@
   .legacy-listing-v1 button { width: 100%; }
 }
 
-/* Listing V2 · ordenamiento y paginación de tabla retirada */
+/* Listing V2 · sorting and pagination for a retired table */
 .legacy-listing-table-v2 { border: 1px solid #ccc; padding: 16px; }
 .legacy-listing-table-v2 [hidden] { display: none; }
 .legacy-listing-table-v2 button { min-height: 36px; border-radius: 3px; }
@@ -46,7 +46,7 @@
   .legacy-listing-table-v2 button { width: 100%; }
 }
 
-/* Listing V3 · comparación y favoritos de grid retirado */
+/* Listing V3 · comparison and favorites for a retired grid */
 .legacy-hybrid-grid-v3 { border: 1px solid #ccc; padding: 16px; }
 .legacy-hybrid-grid-v3 [hidden] { display: none; }
 .legacy-hybrid-grid-v3 button { min-height: 36px; border-radius: 3px; }
@@ -57,7 +57,7 @@
   .legacy-hybrid-grid-v3 button { width: 100%; }
 }
 
-/* Details V1 · pestañas de especificaciones antiguas */
+/* Details V1 · historical specification tabs */
 .legacy-details-tabs-v1 { border: 1px solid #ccc; padding: 16px; }
 .legacy-details-tabs-v1 [hidden] { display: none; }
 .legacy-details-tabs-v1 button { min-height: 36px; border-radius: 3px; }
@@ -68,7 +68,7 @@
   .legacy-details-tabs-v1 button { width: 100%; }
 }
 
-/* Details V2 · galería retirada con controles propios */
+/* Details V2 · retired gallery with custom controls */
 .legacy-detail-gallery-v2 { border: 1px solid #ccc; padding: 16px; }
 .legacy-detail-gallery-v2 [hidden] { display: none; }
 .legacy-detail-gallery-v2 button { min-height: 36px; border-radius: 3px; }
@@ -79,7 +79,7 @@
   .legacy-detail-gallery-v2 button { width: 100%; }
 }
 
-/* Details V3 · simulador financiero antiguo */
+/* Details V3 · historical finance calculator */
 .legacy-finance-details-v3 { border: 1px solid #ccc; padding: 16px; }
 .legacy-finance-details-v3 [hidden] { display: none; }
 .legacy-finance-details-v3 button { min-height: 36px; border-radius: 3px; }
@@ -90,7 +90,7 @@
   .legacy-finance-details-v3 button { width: 100%; }
 }
 
-/* Listing V4 revisión anterior · accesorios y cargos */
+/* Previous Listing V4 revision · accessories and charges */
 .legacy-accessories-card-v4 { border: 1px solid #ccc; padding: 16px; }
 .legacy-accessories-card-v4 [hidden] { display: none; }
 .legacy-accessories-card-v4 button { min-height: 36px; border-radius: 3px; }
@@ -101,7 +101,7 @@
   .legacy-accessories-card-v4 button { width: 100%; }
 }
 
-/* Listing V5 revisión anterior · formulario de consulta */
+/* Previous Listing V5 revision · inquiry form */
 .legacy-lead-form-v5 { border: 1px solid #ccc; padding: 16px; }
 .legacy-lead-form-v5 [hidden] { display: none; }
 .legacy-lead-form-v5 button { min-height: 36px; border-radius: 3px; }
@@ -112,7 +112,7 @@
   .legacy-lead-form-v5 button { width: 100%; }
 }
 
-/* Listing V6 beta retirada · presentación de cargos náuticos */
+/* Retired Listing V6 beta · marine charges */
 .legacy-marine-fees-v6 { border: 1px solid #ccc; padding: 16px; }
 .legacy-marine-fees-v6 [hidden] { display: none; }
 .legacy-marine-fees-v6 button { min-height: 36px; border-radius: 3px; }
@@ -123,7 +123,7 @@
   .legacy-marine-fees-v6 button { width: 100%; }
 }
 
-/* Details V6 beta retirada · paquetes y panel móvil */
+/* Retired Details V6 beta · packages and mobile panel */
 .legacy-detail-packages-v6 { border: 1px solid #ccc; padding: 16px; }
 .legacy-detail-packages-v6 [hidden] { display: none; }
 .legacy-detail-packages-v6 button { min-height: 36px; border-radius: 3px; }

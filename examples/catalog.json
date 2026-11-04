@@ -2,10 +2,10 @@
   {
     "id": "prices",
     "folder": "01-precios",
-    "title": "1. Unidades de $22,448 publicadas a $22",
-    "summary": "El cálculo global suma correctamente el desglose de V4. Al pasar a V5, una lectura alternativa del precio trunca los miles sin lanzar errores.",
-    "failure": "V5 publica $22, $17 y $46 en lugar de $22,448, $17,657 y $46,947. El lote pasa de $87,052 a $85. En V6, sumar MSRP y Sale Price también duplica conceptos.",
-    "solution": "Cada versión toma el importe estructurado en centavos, valida el contrato y escribe solo su precio final. Si falta el dato, bloquea la consulta en vez de inventar cero.",
+    "title": "1. Price integrity across inventory versions",
+    "summary": "The global V4 calculation works until V5 falls back to parsing a formatted currency string.",
+    "failure": "V5 displays $22, $17 and $46 instead of $22,448, $17,657 and $46,947. The batch drops from $87,052 to $85 without a JavaScript exception. V6 also double-counts MSRP.",
+    "solution": "Read structured integer cents, validate the price contract, and write to the version-specific final-price element. Missing prices must not become zero.",
     "initial": 4,
     "global": "01-precios/global-widget.html",
     "scoped": [
@@ -32,10 +32,10 @@
   {
     "id": "structure",
     "folder": "02-estructura",
-    "title": "2. El CSS deja la venta sin botones utilizables",
-    "summary": "Los selectores por posición de V4 se aplican a bloques que tienen otro significado en V5/V6: fotos recortadas, filas comprimidas y CTA sin clics.",
-    "failure": "En V4 el tercer div contiene precios estáticos. En V5/V6 contiene la columna de acciones: hereda pointer-events:none y recorte. Los 3 CTA dejan de recibir clics del puntero.",
-    "solution": "Las reglas utilizan clases semánticas dentro de su versión. Ninguna regla de precios alcanza la columna de acciones; se conservan lista, imágenes y controles.",
+    "title": "2. Layout changes that block commercial actions",
+    "summary": "Positional CSS written for V4 reaches different elements in V5/V6.",
+    "failure": "Images are clipped, list rows are compressed, and all three commercial CTA columns inherit pointer-events:none.",
+    "solution": "Use semantic selectors scoped to the template. Keep pricing rules away from action columns and remove the conflicting global block.",
     "initial": 4,
     "global": "02-estructura/global-widget.html",
     "extraSources": [
@@ -65,10 +65,10 @@
   {
     "id": "quote",
     "folder": "03-cotizacion",
-    "title": "3. Cotizar una unidad y enviar los datos de otra",
-    "summary": "La consulta funciona en V4. En V5, el fallback al primer precio del documento produce una cotización de otra unidad y otro importe.",
-    "failure": "En V5 pulsa Get Quote de la segunda unidad: se solicita CFMOTO a $17,657, pero el borrador contiene Polaris a $22,448. No se envía nada; la discrepancia queda visible.",
-    "solution": "La unidad se obtiene desde el botón pulsado, con su SKU y precio en centavos. Se comprueba su identidad; no se usa el primer elemento del documento como sustituto.",
+    "title": "3. Quote the selected unit, not the first result",
+    "summary": "A fallback to the first document match mixes product identity after a version switch.",
+    "failure": "In V5, requesting the second CFMOTO at $17,657 creates a demo draft for the first Polaris at $22,448. Nothing is sent.",
+    "solution": "Resolve the unit from the activated button, require its SKU and structured price, and block drafts when either is missing.",
     "initial": 4,
     "global": "03-cotizacion/global-widget.html",
     "scoped": [
@@ -113,10 +113,10 @@
   {
     "id": "monolith",
     "folder": "04-monolito",
-    "title": "4. Un solo widget con código actual y diez revisiones heredadas",
-    "summary": "El global acumula seis contextos actuales, diez módulos históricos simulados, sus estilos y utilidades. Solo una ruta está activa, pero todo el archivo permanece en el mismo campo.",
-    "failure": "Primero prueba el monolito, que funciona. Después simula el hotfix de V4: Listing V5/V6 y Details también ofrecen “Cotizar ATV con accesorios”. El archivo está ordenado, pero la edición y publicación siguen acopladas.",
-    "solution": "Se guardan seis módulos. Solo Listing V4 recibe la campaña de ATV; V5, V6 y Details conservan sus mensajes, precios y cotizaciones. La funcionalidad común puede seguir en una librería compartida.",
+    "title": "4. One global archive versus version-specific modules",
+    "summary": "Six current contexts and ten simulated historical implementations live in one global field.",
+    "failure": "The initial global router works. A shared constant changed for a V4 campaign also changes V5/V6 and Details. Historical functions remain defined but uninvoked.",
+    "solution": "Save each adaptation with its view/version. Only V4 receives the ATV campaign; other contexts retain their own wording, prices and quote adapters.",
     "initial": 4,
     "global": "04-monolito/global-widget.html",
     "hotfix": "04-monolito/global-hotfix-widget.html",
@@ -164,5 +164,24 @@
       }
     ],
     "manifest": "04-monolito/manifest.json"
+  },
+  {
+    "id": "detail-total",
+    "folder": "05-details-total",
+    "title": "5. Details V6: sale price is not the final total",
+    "summary": "The new product page exposes MSRP, a sale subtotal, delivery charges and a final total. Selecting the wrong amount creates an underquoted draft.",
+    "failure": "Start My Deal uses the correct stock 3229 but quotes $16,184 instead of the $17,126 total, omitting $942 in destination and assembly charges.",
+    "solution": "The Details V6 container reads the structured final total in cents while preserving the separate sale-price display.",
+    "initial": 6,
+    "detailsInitial": 6,
+    "global": "05-details-total/global-widget.html",
+    "scoped": [
+      {
+        "type": "details",
+        "version": 6,
+        "js": "05-details-total/details-v6.js",
+        "css": "05-details-total/details-v6.css"
+      }
+    ]
   }
 ]

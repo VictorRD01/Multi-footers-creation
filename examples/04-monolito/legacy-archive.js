@@ -1,7 +1,7 @@
-// Archivo histórico SIMULADO. Definiciones para la exposición; no se ejecutan en el router actual.
+// SIMULATED historical archive; source for presentation, not a standalone runtime.
 // <module id="legacy-listing-v1" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V1 · filtros por hash de una plantilla retirada
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Listing V1 · hash filters for a retired demo template
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_listing_v1() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-listing-v1');
@@ -29,7 +29,7 @@
         card.toggle(matches);
         if (matches) visible++;
       });
-      summary.text(visible + ' resultados heredados');
+      summary.text(visible + ' historical results');
     }
     function writeHash() {
       const parameters = new URLSearchParams();
@@ -54,10 +54,9 @@
     return true;
   }
 // </module>
-
 // <module id="legacy-listing-v2" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V2 · ordenamiento y paginación de tabla retirada
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Listing V2 · sorting and pagination for a retired table
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_listing_v2() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-listing-table-v2');
@@ -105,10 +104,9 @@
     return true;
   }
 // </module>
-
 // <module id="legacy-listing-v3" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V3 · comparación y favoritos de grid retirado
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Listing V3 · comparison and favorites for a retired grid
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_listing_v3() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-hybrid-grid-v3');
@@ -123,7 +121,7 @@
         const item = jQuery('<div class="legacy-compare-item">');
         jQuery('<strong>').text(data.name).appendTo(item);
         jQuery('<span>').text(data.price).appendTo(item);
-        jQuery('<button type="button">').text('Quitar')
+        jQuery('<button type="button">').text('Remove')
           .attr('data-remove-stock', stock).appendTo(item);
         comparison.append(item);
       }
@@ -158,10 +156,9 @@
     return true;
   }
 // </module>
-
 // <module id="legacy-details-tabs" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V1 · pestañas de especificaciones antiguas
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Details V1 · historical specification tabs
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_details_tabs() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-details-tabs-v1');
@@ -204,10 +201,9 @@
     return true;
   }
 // </module>
-
 // <module id="legacy-details-gallery" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V2 · galería retirada con controles propios
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Details V2 · retired gallery with custom controls
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_details_gallery() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-detail-gallery-v2');
@@ -246,10 +242,9 @@
     return true;
   }
 // </module>
-
 // <module id="legacy-details-finance" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V3 · simulador financiero antiguo
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Details V3 · historical finance calculator
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_details_finance() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-finance-details-v3');
@@ -270,8 +265,8 @@
         && price > 0 && deposit >= 0 && deposit <= price
         && Number.isInteger(months) && months > 0 && annualRate >= 0;
       if (!valid) {
-        error.text('Revise los datos de la simulación histórica.');
-        output.text('No disponible');
+        error.text('Review the historical simulation inputs.');
+        output.text('Unavailable');
         return;
       }
       const principal = price - deposit;
@@ -280,7 +275,7 @@
         ? principal / months
         : principal * monthlyRate / (1 - Math.pow(1 + monthlyRate, -months));
       output.text(payment.toFixed(2));
-      error.text('Ejemplo histórico de cálculo, sin oferta de crédito.');
+      error.text('Historical calculation example; not a credit offer.');
       root.find('.legacy-principal').text(principal.toFixed(2));
       root.find('.legacy-total-payments').text((payment * months).toFixed(2));
       root.find('.legacy-total-interest').text((payment * months - principal).toFixed(2));
@@ -296,10 +291,9 @@
     return true;
   }
 // </module>
-
 // <module id="legacy-v4-accessories" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V4 revisión anterior · accesorios y cargos
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Previous Listing V4 revision · accessories and charges
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v4_accessories() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-accessories-card-v4');
@@ -335,17 +329,16 @@
     });
     root.on('click.legacyAccessories', '.legacy-copy-configuration', () => {
       if (!calculate()) return;
-      // Solo muestra el JSON en el propio formulario; no envía datos.
+      // Display JSON in the local form only; never send data.
       root.find('.legacy-configuration-json').text(JSON.stringify([...selected.entries()], null, 2));
     });
     calculate();
     return true;
   }
 // </module>
-
 // <module id="legacy-v5-lead-form" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V5 revisión anterior · formulario de consulta
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Previous Listing V5 revision · inquiry form
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v5_lead_form() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-lead-form-v5');
@@ -365,7 +358,7 @@
       const valid = rule(value);
       jQuery(input).attr('aria-invalid', String(!valid));
       jQuery(input).closest('.legacy-form-field').find('.legacy-field-error')
-        .text(valid ? '' : 'Revise este dato.');
+        .text(valid ? '' : 'Review this value.');
       return valid;
     }
     fields.off('.legacyLead').on('change.legacyLead blur.legacyLead', function () {
@@ -375,7 +368,7 @@
       event.preventDefault();
       const valid = fields.toArray().map(validateField).every(Boolean);
       if (!valid) {
-        summary.text('Hay campos pendientes.');
+        summary.text('Some fields need attention.');
         fields.filter('[aria-invalid="true"]').first().trigger('focus');
         return;
       }
@@ -383,17 +376,16 @@
       fields.each(function () {
         if (this.name && this.type !== 'password') payload[this.name] = this.type === 'checkbox' ? this.checked : this.value;
       });
-      // Conservado como simulación: nunca hay fetch, AJAX ni envío de formulario.
-      summary.text('Borrador local heredado: ' + Object.keys(payload).length + ' campos, sin envío.');
+      // Simulation only: no fetch, AJAX or form submission.
+      summary.text('Historical local draft: ' + Object.keys(payload).length + ' fields; not sent.');
       root.find('.legacy-payload-preview').text(JSON.stringify(payload, null, 2));
     });
     return true;
   }
 // </module>
-
 // <module id="legacy-v6-marine-fees" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Listing V6 beta retirada · presentación de cargos náuticos
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Retired Listing V6 beta · marine charges
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v6_marine_fees() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-marine-fees-v6');
@@ -417,7 +409,7 @@
       root.find('.legacy-total-incentives').text(format(incentives));
       breakdown.find('[data-charge-kind="charge"]').prop('hidden', !view.showCharges);
       breakdown.find('[data-charge-kind="incentive"]').prop('hidden', !view.showIncentives);
-      root.find('.legacy-fee-disclosure').text(rows.length + ' conceptos en el desglose histórico.');
+      root.find('.legacy-fee-disclosure').text(rows.length + ' items in the historical breakdown.');
     }
     root.find('.legacy-toggle-charges').off('.legacyMarine').on('click.legacyMarine', function () {
       view.showCharges = !view.showCharges;
@@ -433,10 +425,9 @@
     return true;
   }
 // </module>
-
 // <module id="legacy-v6-detail-packages" status="archived">
-  // ARCHIVO HISTÓRICO SIMULADO: Details V6 beta retirada · paquetes y panel móvil
-  // No corresponde al DOM actual. Se conserva para demostrar acumulación.
+  // SIMULATED HISTORICAL ARCHIVE: Retired Details V6 beta · packages and mobile panel
+  // Not compatible with the current DOM; preserved to demonstrate accumulation.
   function legacy_v6_detail_packages() {
     legacyMountAttempts++;
     const root = jQuery('.legacy-detail-packages-v6');
@@ -455,7 +446,7 @@
         if (selected) names.push(jQuery(this).find('.legacy-package-name').text());
       });
       root.find('.legacy-package-count').text(names.length);
-      root.find('.legacy-package-names').text(names.join(', ') || 'Sin paquetes');
+      root.find('.legacy-package-names').text(names.join(', ') || 'No packages');
     }
     root.off('.legacyPackages').on('click.legacyPackages', '.legacy-select-package', function () {
       const code = jQuery(this).closest('.legacy-package-card').attr('data-package-code');

@@ -1,4 +1,4 @@
-/* Listing V5: reglas limitadas a esta estructura. Sin nth-child ni !important. */
+/* Listing V5: rules scoped to this structure. No positional selectors or !important. */
 .inventory-v5 .reference-card { overflow: hidden; }
 .inventory-v5 .reference-actions { pointer-events: auto; }
 .inventory-v5 .reference-vehicles.list-view { grid-template-columns: minmax(0, 1fr); }

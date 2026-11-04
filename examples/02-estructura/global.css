@@ -1,8 +1,8 @@
-/* CSS de un diseño compacto escrito y validado para las tarjetas V4. */
+/* Compact-card CSS written and checked against V4 cards. */
 .reference-vehicles { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-/* En V4 el segundo div es la descripción. En V5/V6 es la imagen. */
+/* The second V4 div is the description; in V5/V6 it is the image. */
 .reference-card > div:nth-of-type(2) { height: 110px !important; overflow: hidden !important; }
-/* En V4 el tercero es el desglose estático de precios.
-   El autor evitó que ese bloque decorativo capturara el puntero.
-   En V5/V6 ese MISMO índice contiene TODOS los botones comerciales. */
+/* The third V4 div is the static price breakdown.
+   The author prevented this decorative block from capturing pointer input.
+   In V5/V6 the SAME position contains ALL commercial actions. */
 .reference-card > div:nth-of-type(3) { height: 250px !important; overflow: hidden !important; pointer-events: none !important; }

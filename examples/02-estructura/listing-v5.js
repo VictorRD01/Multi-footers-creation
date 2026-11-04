@@ -1,2 +1,2 @@
-// La comprobación se hace después de aplicar el CSS de esta versión.
-InventoryLab.auditLayout('Solución: estructura de Listing V5');
+// Run the check after this version CSS has been applied.
+InventoryLab.auditLayout('Fixed: Listing structure V5');

@@ -1,4 +1,4 @@
-/* Solo listing V6. Editar aquí no reemplaza los demás módulos. */
+/* Only Listing V6. Editing this file does not replace other modules. */
 .inventory-v6 .reference-actions .primary-action { background: #007f86; color: #fff; }
 .inventory-v6 .all-in-price .vehicle-price { font-size: 29px; font-variant-numeric: tabular-nums; }
 .vehicle-action:disabled { opacity: .5; cursor: not-allowed; }

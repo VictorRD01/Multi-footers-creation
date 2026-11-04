@@ -1,5 +1,5 @@
 <script>
-// REGRESIÓN: el fallback mezcla la unidad pulsada con la primera del inventario.
+// REGRESSION: the fallback mixes the selected unit with the first result.
 (function () {
   if (window.demoQuoteHandler) document.removeEventListener('click', window.demoQuoteHandler, true);
   window.demoQuoteHandler = function (event) {
@@ -8,9 +8,9 @@
     const clicked = button.closest('.vehicle-card');
     if (!clicked) return;
     event.preventDefault(); event.stopImmediatePropagation();
-    // Ruta V4, correcta mientras exista .grid-total en la tarjeta pulsada.
+    // V4 path: correct while the selected card contains .grid-total.
     const pricing = clicked.querySelector('.grid-total');
-    // Fallback global peligroso cuando cambia el HTML a V5.
+    // Unsafe global fallback when switching to the V5 HTML.
     const resolved = pricing ? clicked : document.querySelector('.vehicle-card');
     const label = (pricing || resolved).querySelector('.vehicle-price');
     const cents = Math.round(Number(label.textContent.replace(/[^0-9.-]/g, '')) * 100);
@@ -18,7 +18,7 @@
       sku: resolved.dataset.stock,
       name: resolved.querySelector('h2').textContent.trim(),
       cents
-    }, 'Fallo global: cotización desde una selección mezclada');
+    }, 'Global regression: quote built from mixed selections');
   };
   document.addEventListener('click', window.demoQuoteHandler, true);
 })();

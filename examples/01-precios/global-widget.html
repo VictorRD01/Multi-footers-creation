@@ -1,6 +1,6 @@
 <script>
-// REGRESIÓN REPRODUCIBLE. No utilizar en un sitio comercial.
-// La rutina se escribió para el desglose de V4. Funciona allí.
+// CONTROLLED REGRESSION. Do not use on a commercial site.
+// This routine was written for the V4 breakdown and works there.
 (function ($) {
   $('.vehicle-card').each(function () {
     const rows = [...this.querySelectorAll('.price-breakdown td')];
@@ -8,14 +8,14 @@
     if (rows.length) {
       amount = rows.reduce((sum, cell) => sum + Number(cell.textContent.replace(/[^0-9.-]/g, '')), 0);
     } else {
-      // Fallback heredado: parseFloat se detiene en la coma de miles.
-      // V5: "$22,448 OUR PRICE" -> 22. No hay excepción JavaScript.
+      // Legacy fallback: parseFloat stops at the thousands comma.
+      // V5: "$22,448 OUR PRICE" -> 22. No JavaScript exception is thrown.
       amount = parseFloat(this.querySelector('.vehicle-price').textContent.replace('$', ''));
     }
     this.querySelector('.vehicle-price').textContent = InventoryLab.usd(Math.round(amount * 100));
-    this.dataset.price = String(amount); // El error alcanza también orden y filtros.
+    this.dataset.price = String(amount); // The error also affects sorting and filters.
   });
-  InventoryLab.auditPrices('Fallo global: precio recalculado desde el DOM de V4');
+  InventoryLab.auditPrices('Global regression: price recalculated from the V4 DOM');
 })(jQuery);
 
 </script>

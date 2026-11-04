@@ -1,4 +1,4 @@
-// Listing V4: resolver la unidad desde el botón pulsado.
+// Listing V4: resolve the unit from the activated button.
 (function () {
   if (window.demoQuoteHandler) document.removeEventListener('click', window.demoQuoteHandler, true);
   window.demoQuoteHandler = function (event) {
@@ -8,14 +8,14 @@
     const unit = button.closest('.vehicle-card');
     const cents = Number(unit?.dataset.unitPriceCents);
     if (!unit?.dataset.stock || !Number.isSafeInteger(cents) || cents <= 0) {
-      InventoryLab.quoteUnavailable(unit, 'Faltan identificador o precio verificables.');
+      InventoryLab.quoteUnavailable(unit, 'A verifiable SKU or price is missing.');
       return;
     }
     InventoryLab.showQuote(unit, {
       sku: unit.dataset.stock,
       name: unit.querySelector('h2, h1').textContent.trim(),
       cents
-    }, 'Cotización correcta · Listing V4');
+    }, 'Correct quote · Listing V4');
   };
   document.addEventListener('click', window.demoQuoteHandler, true);
 })();
