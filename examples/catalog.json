@@ -102,7 +102,7 @@
     "id": "monolith",
     "folder": "04-monolito",
     "title": "4. One global archive versus version-specific modules",
-    "summary": "Six current contexts and ten simulated historical implementations live in one global field.",
+    "summary": "Four current contexts and twelve simulated historical implementations live in one global field.",
     "failure": "The initial global router works. A shared constant changed for a V4 campaign also changes V5/V6 and Details. Historical functions remain defined but uninvoked.",
     "solution": "Save each adaptation with its view/version. Only V4 receives the ATV campaign; other contexts retain their own wording, prices and quote adapters.",
     "initial": 4,
