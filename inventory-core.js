@@ -5,7 +5,7 @@ function defaultWidgets() { return { enabled: false, html: `<script>
 // jQuery is available; use (function ($) { ... })(jQuery).
 </script>` }; }
 
-const definitions = [{ id: 'listing', title: 'Inventory Listing', subtitle: 'Customize your vehicle listing experience', versions: [1,2,3,4,5,6], icon: faIcon('table-cells') }, { id: 'details', title: 'Inventory Details', subtitle: 'Customize your vehicle details experience', versions: [1,3,6], icon: faIcon('list') }];
+const definitions = [{ id: 'listing', title: 'Inventory Listing', subtitle: 'Customize your vehicle listing experience', versions: [4,5,6], icon: faIcon('table-cells') }, { id: 'details', title: 'Inventory Details', subtitle: 'Customize your vehicle details experience', versions: [6], icon: faIcon('list') }];
 // Inventory markup belongs to the application; version editors only own CSS and JS.
 const inventoryStyles = `
 *{box-sizing:border-box}body{margin:0;background:#fff;color:#202b33;font:13px/1.5 Arial,sans-serif}.inventory-page{padding:24px}.inventory-header{border-bottom:1px solid #dcdcde;padding-bottom:18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}.dealer-brand{font-size:15px;font-weight:bold;letter-spacing:2px}.inventory-header span{font-size:10px;color:#667580}h1{font-size:24px;margin:0 0 6px}p{color:#687782}.inventory-toolbar{display:flex;gap:10px;margin:20px 0}.inventory-toolbar input,.inventory-toolbar select{padding:10px;border:1px solid #b7bec3;min-width:0;background:#fff;border-radius:2px}.inventory-toolbar input{flex:1}.vehicle-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.vehicle-card{border:1px solid #dcdcde;background:#fff}.vehicle-image{display:block;width:100%;height:140px;background:#edf1f3}.vehicle-body{padding:14px}.vehicle-condition{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#607580}.vehicle-card h2{font-size:15px;line-height:1.4;margin:6px 0}.vehicle-specs{font-size:10px;color:#687782;border-bottom:1px solid #e5e5e5;padding-bottom:12px}.vehicle-price{font-size:20px;font-weight:bold;margin:12px 0}.inventory-page button{background:#007f86;color:#fff;border:1px solid #007f86;border-radius:2px;padding:9px 12px;cursor:pointer;font-size:11px}.inventory-page button:hover{background:#005e64;border-color:#005e64}.vehicle-footer{display:flex;gap:8px;align-items:center;justify-content:space-between}.vehicle-footer small{color:#687782;font-size:9px}.vehicle-detail-image{width:100%;display:block;background:#edf1f3}.detail-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 0;border-block:1px solid #dcdcde;margin:15px 0}.detail-facts span{font-size:11px}.detail-price{font-size:27px;font-weight:bold}.inventory-empty{color:#687782}button,input,select{font:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #007f86;outline-offset:2px}@media(max-width:420px){.vehicle-grid{grid-template-columns:1fr}.inventory-toolbar{flex-wrap:wrap}.inventory-page{padding:16px}.inventory-header span{display:none}}
@@ -74,7 +74,7 @@ function defaults() {
 function validate(data) {
   for (const d of definitions) {
     const item = data?.[d.id];
-    if (!item || !d.versions.includes(item.selected)) throw new Error('Invalid selected version');
+    if (!item || !(d.id === 'listing' ? [1,2,3,4,5,6] : [1,3,6]).includes(item.selected)) throw new Error('Invalid selected version');
     for (const v of d.versions) for (const field of ['js','css']) if (typeof item.versions?.[v]?.[field] !== 'string') throw new Error('Invalid version code');
   }
   for (const v of [4,5,6]) {
@@ -83,7 +83,7 @@ function validate(data) {
   }
   const widgets = data.widgets === undefined ? defaultWidgets() : data.widgets;
   if (!widgets || typeof widgets.enabled !== 'boolean' || typeof widgets.html !== 'string') throw new Error('Invalid global widget');
-  const configuration = Object.fromEntries(definitions.map(d => [d.id, {selected: data[d.id].selected, versions: Object.fromEntries(d.versions.map(v => [v, {js:data[d.id].versions[v].js, css:data[d.id].versions[v].css}]))}]));
+  const configuration = Object.fromEntries(definitions.map(d => [d.id, {selected: d.versions.includes(data[d.id].selected) ? data[d.id].selected : 6, versions: Object.fromEntries(d.versions.map(v => [v, {js:data[d.id].versions[v].js, css:data[d.id].versions[v].css}]))}]));
   configuration.widgets = {enabled: widgets.enabled, html: widgets.html};
   configuration.uiRevision = 2;
   if (data.uiRevision !== 2) {

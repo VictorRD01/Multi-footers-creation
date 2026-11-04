@@ -9,7 +9,7 @@ A WordPress-style inventory customization demo hosted on GitHub Pages. Built wit
 
 ## Editing and previewing
 
-Listing supports versions 1–6; Details supports 1, 3 and 6. Both default to **V6**. An existing configuration receives a one-time selection migration to V6 without replacing custom code. Subsequent selections persist normally.
+Listing supports versions 4, 5 and 6; Details supports version 6. Both default to **V6**. An existing configuration receives a one-time selection migration to V6 without replacing custom code. Subsequent selections persist normally.
 
 The Listing and Details editors appear side by side on desktop, with separate JavaScript and CSS tabs. They do not contain embedded inventory previews. **View Inventory Listing** and **View Inventory Details** open the selected version in another tab. Save in the editor, then use **Reload changes** on the inventory page.
 
@@ -21,7 +21,7 @@ Each view/version keeps its own scripts and styles in localStorage. Unselected v
 - Listing V5 follows the Karl Malone row reference.
 - Listing V6 follows the B&E Marine pricing and promotion reference.
 - Details V6 follows the supplied Yamaha WaveRunner screenshot, with an image gallery, black pricing panel, green actions and a locally validated contact form. Images are local demonstration illustrations.
-- Listing 1–3 and Details 1/3 retain generic fixtures.
+- Retired version URLs fall back to the saved supported selection.
 
 The HTML belongs to the application. Users edit only JS and CSS for their chosen version. Preview execution remains isolated in a fresh sandboxed iframe on each inventory page. The demo does not send commercial requests, calls, payments or financing applications.
 
@@ -31,7 +31,7 @@ The HTML belongs to the application. Users edit only JS and CSS for their chosen
 
 **Dealer Settings → Test Scenarios** contains seven ordered English checks, including five runnable comparisons and two manual acceptance tests. Each describes its setup, steps and expected result. Examples demonstrate incorrect prices, blocked actions, mismatched quote identity, a shared hotfix reaching unrelated views, and the Details V6 sale subtotal being mistaken for its final total.
 
-The global architecture example includes six current routes and ten simulated historical modules. Historical functions are defined but never invoked. The code comparison shows actual file sizes and module ranges alongside the selected separate module.
+The global architecture example includes four current routes and twelve simulated historical modules. Historical functions are defined but never invoked. The code comparison shows actual file sizes and module ranges alongside the selected separate module.
 
 See [the English presentation and test guide](examples/SCENARIOS.md) for instructions, limits and restoration. Loading an example asks before replacing its listed destinations and keeps a local pre-example backup.
 

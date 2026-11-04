@@ -22,13 +22,13 @@ The inventory editors are side by side. Listing and Details default to Version 6
 
 1. Run the global quote example. Activate the second unit in V4.
 2. Switch to V5 and activate the second CFMOTO: the global fallback resolves the first Polaris at `$22,448` instead of the requested CFMOTO at `$17,657`.
-3. Apply the solution. Test Listing 4/5/6 and Details 1/3/6. Each adapter resolves the unit from its button, validates SKU and structured cents, and preserves product identity.
+3. Apply the solution. Test Listing 4/5/6 and Details 6. Each adapter resolves the unit from its button, validates SKU and structured cents, and preserves product identity.
 4. Details V6 is stock `3229`, with a displayed total of `$17,126`.
 
 ## 04 — Global archive versus separate modules
 
 1. Load the complete global example. Inspect the full source and the module map under Widgets.
-2. The global contains six current contexts and ten simulated historical implementations. Only the selected route mounts; historical invocation count remains zero.
+2. The global contains four current contexts and twelve simulated historical implementations. Only the selected route mounts; historical invocation count remains zero.
 3. Simulate the shared V4 hotfix. Its ATV message also appears in V5/V6 and Details.
 4. Apply the scoped solution. Only V4 gets the campaign; other contexts retain their own messages, prices and quote adapters.
 
@@ -65,7 +65,7 @@ document.querySelector('.inventory-page').dataset.testMarker = 'listing-six';
 
 ## 07 — Details V6 gallery and inquiry flow
 
-The layout recreates the supplied WaveRunner reference with local SVG illustrations rather than the original photograph. Details 1 and 3 retain the generic fixture.
+The layout recreates the supplied WaveRunner reference with local SVG illustrations rather than the original photograph. Only Details V6 is available.
 
 Check:
 

@@ -1,9 +1,9 @@
 {
   "source": "04-monolito/global.js",
-  "lineCount": 806,
-  "bytes": 37619,
-  "currentContexts": 6,
-  "archivedModules": 10,
+  "lineCount": 808,
+  "bytes": 37809,
+  "currentContexts": 4,
+  "archivedModules": 12,
   "modules": [
     {
       "id": "listing-v4",
@@ -34,21 +34,21 @@
     },
     {
       "id": "details-v1",
-      "status": "current",
+      "status": "archived",
       "label": "Details V1",
       "startLine": 245,
       "endLine": 253,
       "lineCount": 9,
-      "bytes": 313
+      "bytes": 314
     },
     {
       "id": "details-v3",
-      "status": "current",
+      "status": "archived",
       "label": "Details V3",
       "startLine": 258,
       "endLine": 266,
       "lineCount": 9,
-      "bytes": 313
+      "bytes": 314
     },
     {
       "id": "details-v6",

@@ -92,18 +92,6 @@
       },
       {
         "type": "details",
-        "version": 1,
-        "js": "03-cotizacion/details-v1.js",
-        "css": "03-cotizacion/details-v1.css"
-      },
-      {
-        "type": "details",
-        "version": 3,
-        "js": "03-cotizacion/details-v3.js",
-        "css": "03-cotizacion/details-v3.css"
-      },
-      {
-        "type": "details",
         "version": 6,
         "js": "03-cotizacion/details-v6.js",
         "css": "03-cotizacion/details-v6.css"
@@ -143,18 +131,6 @@
         "version": 6,
         "js": "04-monolito/listing-v6.js",
         "css": "04-monolito/listing-v6.css"
-      },
-      {
-        "type": "details",
-        "version": 1,
-        "js": "04-monolito/details-v1.js",
-        "css": "04-monolito/details-v1.css"
-      },
-      {
-        "type": "details",
-        "version": 3,
-        "js": "04-monolito/details-v3.js",
-        "css": "04-monolito/details-v3.css"
       },
       {
         "type": "details",

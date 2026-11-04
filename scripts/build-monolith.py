@@ -12,11 +12,11 @@ for match in re.finditer(r'// <module id="([^"]+)" status="([^"]+)">([\s\S]*?)//
     start = source[:match.start()].count('\n') + 1
     end = source[:match.end()].count('\n') + 1
     entries.append({**previous[match[1]], 'startLine': start, 'endLine': end,
-                    'lineCount': end - start + 1, 'bytes': len(match[0].encode())})
+                    'lineCount': end - start + 1, 'bytes': len(match[0].encode()), 'status': match[2]})
     if match[2] == 'archived':
         archived.append(match[0])
-assert len(entries) == 16 and len(archived) == 10
-manifest.update(lineCount=len(source.splitlines()), bytes=len(source.encode()), modules=entries)
+assert len(entries) == 16 and len(archived) == 12
+manifest.update(lineCount=len(source.splitlines()), bytes=len(source.encode()), modules=entries, currentContexts=4, archivedModules=12)
 (root / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
 (root / 'global-widget.html').write_text('<script>\n' + source + '\n</script>\n')
 old = "ctaText: 'Request information · demo'"

@@ -1,4 +1,22 @@
 // SIMULATED historical archive; source for presentation, not a standalone runtime.
+// <module id="details-v1" status="archived">
+  function detailsV1() {
+    writePrice(page, '.detail-price');
+    setButtons('.inventory-page > .vehicle-action');
+    installQuoteHandler('.inventory-page');
+    markContext('Details V1');
+    InventoryLab.auditPrices('Global archive: Details V1');
+  }
+// </module>
+// <module id="details-v3" status="archived">
+  function detailsV3() {
+    writePrice(page, '.detail-price');
+    setButtons('.inventory-page > .vehicle-action');
+    installQuoteHandler('.inventory-page');
+    markContext('Details V3');
+    InventoryLab.auditPrices('Global archive: Details V3');
+  }
+// </module>
 // <module id="legacy-listing-v1" status="archived">
   // SIMULATED HISTORICAL ARCHIVE: Listing V1 · hash filters for a retired demo template
   // Not compatible with the current DOM; preserved to demonstrate accumulation.

@@ -1,7 +1,7 @@
 <script>
 // ============================================================
 // GLOBAL WIDGET: styles + money + identity + events + CTA
-// + six current contexts and ten simulated historical revisions.
+// + four current contexts and twelve simulated historical revisions.
 // Everything remains in one editing field, although only one route mounts.
 // It is organized and functional, but remains one editing/publication unit.
 // ============================================================
@@ -10,13 +10,13 @@
   const type = page.dataset.inventoryType;
   const version = Number(page.dataset.version);
   const shared = {
-    // An edit here reaches Listing 4/5/6 and Details 1/3/6.
+    // An edit here reaches Listing 4/5/6 and Details 6.
     ctaText: 'Quote ATV with accessories · V4 hotfix',
     accent: '#bd1e2d'
   };
   const css = `
 /* ============================================================
-   SHARED STYLES — consumed by all SIX branches in this file.
+   SHARED STYLES — consumed by all FOUR active branches in this file.
    ============================================================ */
 .inventory-page .vehicle-action { border-radius: 4px; }
 .inventory-page .demo-module-note { padding: 12px; background: #edf7f6; border-left: 3px solid #007f86; color: #175752; font: 12px/1.7 Arial, sans-serif; }
@@ -243,7 +243,7 @@
   // ==========================================================
   // DETAILS / V1: product, amount and contact button
   // ==========================================================
-// <module id="details-v1" status="current">
+// <module id="details-v1" status="archived">
   function detailsV1() {
     writePrice(page, '.detail-price');
     setButtons('.inventory-page > .vehicle-action');
@@ -256,7 +256,7 @@
   // ==========================================================
   // DETAILS / V3: product, amount and specifications
   // ==========================================================
-// <module id="details-v3" status="current">
+// <module id="details-v3" status="archived">
   function detailsV3() {
     writePrice(page, '.detail-price');
     setButtons('.inventory-page > .vehicle-action');
@@ -767,6 +767,8 @@
 // </module>
 
   const legacyRegistry = Object.freeze([
+    Object.freeze({id:'details-v1',label:'Retired Details V1 example',selector:'.retired-details-v1'}),
+    Object.freeze({id:'details-v3',label:'Retired Details V3 example',selector:'.retired-details-v3'}),
     Object.freeze({"id": "legacy-listing-v1", "label": "Listing V1 · hash filters for a retired demo template", "selector": ".legacy-listing-v1"}),
     Object.freeze({"id": "legacy-listing-v2", "label": "Listing V2 · sorting and pagination for a retired table", "selector": ".legacy-listing-table-v2"}),
     Object.freeze({"id": "legacy-listing-v3", "label": "Listing V3 · comparison and favorites for a retired grid", "selector": ".legacy-hybrid-grid-v3"}),
@@ -784,7 +786,7 @@
   // ==========================================================
   const routes = {
     listing: {4: listingV4, 5: listingV5, 6: listingV6},
-    details: {1: detailsV1, 3: detailsV3, 6: detailsV6}
+    details: {6: detailsV6}
   };
   const mount = routes[type]?.[version];
   if (mount) mount();
